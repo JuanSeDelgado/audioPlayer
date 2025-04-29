@@ -1,13 +1,14 @@
 import React, { useState, useEffect } from 'react';
-import SongCard from './SongCard'; 
-import SongSelected from './SongSelected'; 
+import SongCard from './SongCard';
+import SongSelected from './SongSelected';
+import Slider from "react-slick";
 import { div } from 'motion/react-client';
 
 function SongsCarousel() {
     const [artists, setArtists] = useState('oblivionnmightytrash');
     const [songs, setSongs] = useState([]);
     const [loading, setLoading] = useState(true);
-    const [currentSong, setCurrentSong] = useState(null); 
+    const [currentSong, setCurrentSong] = useState(null);
 
     // Función para obtener canciones desde Deezer
     const fetchSongs = async () => {
@@ -15,7 +16,7 @@ function SongsCarousel() {
             const response = await fetch(`https://cors-anywhere.herokuapp.com/https://api.deezer.com/search?q=${artists}`
             );
             const data = await response.json();
-            setSongs(data.data);  
+            setSongs(data.data);
             setLoading(false);
         } catch (error) {
             console.error('Error al obtener canciones:', error);
@@ -24,19 +25,20 @@ function SongsCarousel() {
     };
 
     useEffect(() => {
-        fetchSongs();  
+        fetchSongs();
     }, [artists]);
 
-    
+
     if (loading) {
         return <div>Cargando canciones...</div>;
     }
+
 
     return (
         <>
             <div className="input-group mb-3">
                 <input
-                    type="text"  
+                    type="text"
                     id="artistInput"
                     className="form-control"
                     placeholder="Artist"
@@ -47,7 +49,7 @@ function SongsCarousel() {
                     className="input-group-text"
                     id="basic-addon2"
                     onClick={() => {
-                        const inputElement = document.getElementById('artistInput'); 
+                        const inputElement = document.getElementById('artistInput');
                         if (inputElement && inputElement.value.trim() !== '') {
                             setArtists(inputElement.value.trim());
                             console.log('Artista:', inputElement.value.trim());
@@ -60,7 +62,7 @@ function SongsCarousel() {
                     <i className="fa-solid fa-magnifying-glass"></i>
                 </span>
             </div>
-           { <SongSelected song={currentSong} />}
+            {<SongSelected song={currentSong} />}
             <div className="carousel-wrapper">
 
                 <div className="carousel-container">
@@ -68,11 +70,12 @@ function SongsCarousel() {
                         <SongCard
                             key={song.id}
                             song={song}
-                            onClick={() => setCurrentSong(song)} 
+                            onClick={() => setCurrentSong(song)}
                         />
                     ))}
                 </div>
             </div>
+
         </>
 
     );

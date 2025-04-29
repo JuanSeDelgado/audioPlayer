@@ -65,3 +65,7 @@
     font-size: 0.875rem;
     opacity: 0.85;
 }
+
+.song-selected audio{
+    min-width: 300px;
+}

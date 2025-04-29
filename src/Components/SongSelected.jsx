@@ -14,7 +14,7 @@ const SongSelected = ({ song }) => {
     if (!song) return null;
 
     return (
-        <div className="song-selected d-inline-flex align-items-center border rounded-3 p-3 gap-4"> {/* Ajustado sin usar Bootstrap */}
+        <div className="song-selected d-inline-flex align-items-center border rounded p-3 gap-4"> {/* Ajustado sin usar Bootstrap */}
             <img src={song.album.cover_medium} alt={song.title} />
             <div>
                 <h5 className='text-light'>{song.title}</h5>
